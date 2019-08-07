@@ -1,0 +1,91 @@
+<br>
+
+    <input class="form-control mr-sm-2" type="text" [(ngModel)]="status" placeholder="Search for title">
+ 
+
+  <br>
+  <label class="checkbox-inline"><input type="checkbox" [checked]="true" (click)="tog1()">BookId</label>
+  <label class="checkbox-inline"><input type="checkbox" [checked]="true" (click)="tog2()">Title</label>
+  <label class="checkbox-inline"><input type="checkbox"  [checked]="true" (click)="tog3()">Authors</label>
+  <label class="checkbox-inline"><input type="checkbox"  [checked]="true" (click)="tog4()">isbn</label>
+  <label class="checkbox-inline"><input type="checkbox"  [checked]="true" (click)="tog5()">language</label>
+  <label class="checkbox-inline"><input type="checkbox"  [checked]="true" (click)="tog6()">Price</label>
+  <label class="checkbox-inline"><input type="checkbox"  [checked]="true" (click)="tog7()">Avg Rating</label>
+  <label class="checkbox-inline"><input type="checkbox"  [checked]="true" (click)="tog8()">Rating count</label>
+
+<br>
+
+
+<div class='table-responsive'>
+  <table class="table table-bordered table-hover table-responsive " >
+        <thead>
+          <tr>
+            <th [hidden]="!myModel1" [class.active]="order === 'id'"
+                (click)="setOrder('id')"
+            >
+              ID <span [hidden]="reverse" class="btn btn-secondary">▼</span
+              ><span [hidden]="!reverse" class="btn btn-secondary">▲</span>
+            </th>
+            <th [hidden]="!myModel2" [class.active]="order === 'title'"
+                (click)="setOrder('title')"
+                class="mdl-data-table__cell--non-numeric"
+            >
+              Title <span [hidden]="reverse" class="btn btn-secondary">▼</span
+              ><span [hidden]="!reverse" class="btn btn-secondary">▲</span>
+            </th>
+            <th [hidden]="!myModel3" [class.active]="order === 'authors'"
+                (click)="setOrder('authors')"
+            >
+              Author<span [hidden]="reverse" class="btn btn-secondary">▼</span>
+              <span [hidden]="!reverse" class="btn btn-secondary">▲</span>
+            </th>
+            <th [hidden]="!myModel4" [class.active]="order === 'isbn'"
+            (click)="setOrder('isbn')"
+        >
+        isbn<span [hidden]="reverse" class="btn btn-secondary">▼</span>
+          <span [hidden]="!reverse" class="btn btn-secondary">▲</span>
+        </th>
+        
+    <th [hidden]="!myModel5" [class.active]="order === 'language_code'"
+    (click)="setOrder('language_code')"
+>
+language_code<span [hidden]="reverse" class="btn btn-secondary">▼</span>
+<span [hidden]="!reverse" class="btn btn-secondary">▲</span>
+</th>
+<th [hidden]="!myModel6" [class.active]="order === 'price'"
+(click)="setOrder('price')"
+>
+Price<span [hidden]="reverse" class="btn btn-secondary">▼</span>
+<span [hidden]="!reverse" class="btn btn-secondary">▲</span>
+</th>
+<th [hidden]="!myModel7" [class.active]="order === 'average_rating'"
+(click)="setOrder('average_rating')"
+>
+average rating<span [hidden]="reverse" class="btn btn-secondary">▼</span>
+<span [hidden]="!reverse" class="btn btn-secondary">▲</span>
+</th>
+<th [hidden]="!myModel8" [class.active]="order === 'ratings_count'"
+(click)="setOrder('ratings_count')"
+>
+ratings count<span [hidden]="reverse" class="btn btn-secondary">▼</span>
+<span [hidden]="!reverse" class="btn btn-secondary">▲</span>
+</th>
+            
+          </tr>
+          </thead>
+        <tbody>
+          <tr *ngFor="let i of datas | searchfilter:status| orderBy: order | paginate: { itemsPerPage: 7, currentPage: p } ">
+            <td [hidden]="!myModel1">{{i.bookID}}</td>
+            <td [hidden]="!myModel2">{{i.title}}</td>
+            <td [hidden]="!myModel3">{{i.authors}}</td>
+            <td [hidden]="!myModel4">{{i.isbn}}</td>
+            <td [hidden]="!myModel5">{{i.language_code}}</td>
+            <td [hidden]="!myModel6">{{i.price}}
+            </td>
+            <td [hidden]="!myModel7">{{i.average_rating}}</td>
+            <td [hidden]="!myModel8">{{i.ratings_count}}</td>
+            <td>
+              <button class="btn btn-primary" (click)="cartadd(i.title,i.price)">Add </button></td>
+          </tr> 
+  </table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
